@@ -42,5 +42,5 @@ jobs:
     steps:
       - run:
           name: deploy-application
-          command: >-
-            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@EC2_PUBLIC_DNS "rm -rf simpleAppDevOpsCA/; git clone git@github.com:RubyK01/simpleAppDevOpsCA.git; source simpleAppDevOpsCA/deploy.sh"
+          command: ssh -o StrictHostKeyChecking=no $EC2_USERNAME@EC2_PUBLIC_DNS "rm -rf simpleAppDevOpsCA/; git clone git@github.com:RubyK01/simpleAppDevOpsCA.git; source 
+          simpleAppDevOpsCA/deploy.sh"
