@@ -9,13 +9,13 @@ workflows:
             branches:
               only:
                 - main
-      -deploy:
-        filters:
-          branches:
-            only:
-              -main
+      - deploy: # Added space here
+          filters:
+            branches:
+              only:
+                - main # Ensure this is consistently indented
             requires:
-              -build
+              - build
 
 jobs:
   build:
@@ -36,12 +36,11 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
-    deploy:
-      docker:
-        -image: circileci/node:10.16.3
-        steps:
-          -run:
-              name: deploy-application
-              command: ssh -o StrictHostKeyChecking=no $EC2_USERNAME@EC2_PUBLIC_DNS "rm -rf simpleAppDevOpsCA/;git clone git@github.com:RubyK01/simpleAppDevOpsCA.git; source
-              simpleAppDevOpsCA/deploy.sh"
-    
+  deploy:
+    docker:
+      - image: circleci/node:10.16.3 # Fixed format here
+    steps:
+      - run:
+          name: deploy-application
+          command: >-
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@EC2_PUBLIC_DNS "rm -rf simpleAppDevOpsCA/; git clone git@github.com:RubyK01/simpleAppDevOpsCA.git; source simpleAppDevOpsCA/deploy.sh"
